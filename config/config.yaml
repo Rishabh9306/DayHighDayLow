@@ -1,0 +1,59 @@
+# Alpha Vantage API for historical data  
+alpha_vantage:
+  api_key: "${ALPHA_VANTAGE_API_KEY}"
+
+# Zerodha Kite API Configuration
+kite:
+  api_key: "${KITE_API_KEY}"             
+  api_secret: "${KITE_API_SECRET}"       
+  user_id: "${KITE_USER_ID}"             
+
+# Trading Configuration
+trading:
+  # Capital and position sizing
+  capital_per_trade: 15000       # Fixed ₹15k per trade
+  fixed_quantity: 150            # Fixed 150 units (2 lots)
+  max_trades_per_day: 4          # Max regular trades (reentries don't count)
+  
+  # Risk management
+  stop_loss_percent: 0.20        # 20% stop loss
+  target_percent: 0.60           # 60% target
+  trailing_sl_percent: 0.20      # 20% trailing stop loss
+  
+  # Market hours (IST)
+  market_start: "09:15"
+  market_end: "15:30"
+  
+  # Signal cooldowns (minutes)
+  cooldown_gap: 15               # Gap up/down cooldown
+  cooldown_breakout: 10          # Breakout cooldown
+  cooldown_reentry: 5            # Reentry cooldown
+  
+  # Reentry settings
+  allow_reentry: true            # Allow reentry trades
+  reentry_counts_towards_limit: false  # Reentries don't count towards 4-trade limit
+
+# Bot Operation Modes
+simulation_mode: false           # Use real market data (not simulated)
+paper_trading: true              # Start with paper trading (change to false for live)
+signal_logging_only: false      # Execute trades (not just logging)
+
+# Database Configuration
+database:
+  type: "sqlite"
+  path: "data/trading_bot.db"
+  cleanup_days: 2                # Keep data for last 2 days only
+
+# Telegram Notifications
+telegram:
+  enabled: true
+  bot_token: "${TELEGRAM_BOT_TOKEN}"     
+  chat_id: "${TELEGRAM_CHAT_ID}"         
+
+# Logging Configuration
+logging:
+  level: "INFO"                  # DEBUG, INFO, WARNING, ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/trading_bot.log"
+  max_file_size_mb: 10          # Maximum log file size in MB
+  backup_count: 5               # Number of backup log files to keep

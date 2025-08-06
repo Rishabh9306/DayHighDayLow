@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: nifty-trading-bot
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python start_trading_bot.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: TZ
+        value: Asia/Kolkata
+    autoDeploy: true
+    healthCheckPath: /health

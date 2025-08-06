@@ -1,0 +1,36 @@
+# Production configuration for cloud deployment
+# Overrides local config with environment variables
+
+trading:
+  capital_per_trade: 15000
+  max_trades_per_day: 4
+  stop_loss_percent: 20
+  target_percent: 60
+  paper_trading: true  # Set to false for live trading
+
+# API configurations will be loaded from environment variables
+kite:
+  api_key: ${KITE_API_KEY}
+  access_token: ${KITE_ACCESS_TOKEN}
+
+alpha_vantage:
+  api_key: ${ALPHA_VANTAGE_API_KEY}
+
+telegram:
+  bot_token: ${TELEGRAM_BOT_TOKEN}
+  chat_id: ${TELEGRAM_CHAT_ID}
+
+database:
+  path: "data/trading_bot.db"  # SQLite for simplicity
+
+logging:
+  level: INFO
+  file_logging: true
+  console_logging: true
+
+# Cloud-specific settings
+cloud:
+  platform: "render"
+  health_check_enabled: true
+  auto_restart: true
+  timezone: "Asia/Kolkata"
