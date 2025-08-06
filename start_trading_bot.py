@@ -52,9 +52,12 @@ async def startup_validation():
     
     # Load environment variables
     print("\n🔑 Loading environment variables...")
-    if not load_env_file():
-        print("❌ Failed to load .env file")
-        return False
+    # Try to load .env file (for local development), but don't fail if it doesn't exist (production)
+    env_loaded = load_env_file()
+    if env_loaded:
+        print("✅ Loaded environment variables from .env file")
+    else:
+        print("ℹ️  No .env file found, using system environment variables (production mode)")
     
     if not validate_required_vars():
         print("❌ Missing required environment variables")

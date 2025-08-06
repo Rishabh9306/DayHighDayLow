@@ -26,6 +26,13 @@ def validate_required_vars():
     """Validate that all required environment variables are set"""
     required_vars = ["KITE_API_KEY", "KITE_API_SECRET", "KITE_USER_ID", "ALPHA_VANTAGE_API_KEY"]
     missing_vars = [var for var in required_vars if not os.environ.get(var)]
+    
+    if missing_vars:
+        print(f"❌ Missing environment variables: {', '.join(missing_vars)}")
+        # Debug: Show what env vars are actually set
+        available_vars = [var for var in required_vars if os.environ.get(var)]
+        print(f"✅ Available environment variables: {', '.join(available_vars)}")
+        
     return len(missing_vars) == 0
 
 class ConfigManager:
