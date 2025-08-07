@@ -21,7 +21,7 @@ telegram:
   chat_id: ${TELEGRAM_CHAT_ID}
 
 database:
-  path: "data/trading_bot.db"  # SQLite for simplicity
+  path: ":memory:"  # In-memory database for production (Render.com filesystem is read-only)
 
 logging:
   level: INFO

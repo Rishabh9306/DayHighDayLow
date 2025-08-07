@@ -20,7 +20,14 @@ from src.utils.logger import setup_logger
 async def validate_real_data():
     """Validate that we can get real market data before starting"""
     try:
-        config = ConfigManager.load_config()
+        # Use production config if ENVIRONMENT is set to production
+        env = os.environ.get('ENVIRONMENT', 'development')
+        if env == 'production':
+            config_file = "config/production.yaml"
+        else:
+            config_file = "config/config.yaml"
+            
+        config = ConfigManager.load_config(config_file)
         
         # Test Alpha Vantage (with Yahoo Finance fallback)
         alpha_client = MarketDataClient(config['alpha_vantage']['api_key'])
@@ -70,7 +77,16 @@ async def startup_validation():
     try:
         # Load configuration  
         print("\n🔧 Loading configuration...")
-        config = ConfigManager.load_config()
+        # Use production config if ENVIRONMENT is set to production
+        env = os.environ.get('ENVIRONMENT', 'development')
+        if env == 'production':
+            config_file = "config/production.yaml"
+            print("   📋 Using production configuration...")
+        else:
+            config_file = "config/config.yaml"
+            print("   📋 Using development configuration...")
+            
+        config = ConfigManager.load_config(config_file)
         print("   ✅ Configuration loaded successfully")
         
         # Validate real data availability
