@@ -40,10 +40,15 @@ class TradingBot:
         self.running = False
         self.simulation_mode = self.config.get('simulation_mode', False)
         self.paper_trading = self.config.get('paper_trading', True)
-        
-        # Setup signal handlers
-        signal.signal(signal.SIGINT, self._signal_handler)
-        signal.signal(signal.SIGTERM, self._signal_handler)
+
+        # Signal handlers
+        try:
+            signal.signal(signal.SIGINT, self._signal_handler)
+            signal.signal(signal.SIGTERM, self._signal_handler)
+        except ValueError:
+            # Signal handlers can only be set in main thread
+            # This is expected when running in a background thread
+            self.logger.info("Signal handlers not set (running in background thread)")
     
     def _signal_handler(self, signum, frame):
         """Handle shutdown signals"""
