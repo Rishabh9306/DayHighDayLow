@@ -122,8 +122,8 @@ async def startup_validation():
         print("\n🎯 Trading Parameters:")
         print(f"   💰 Capital per trade: ₹{config['trading']['capital_per_trade']:,}")
         print(f"   📊 Max trades per day: {config['trading']['max_trades_per_day']}")
-        print(f"   🛡️ Stop loss: {config['trading']['stop_loss_percent'] * 100:.0f}%")
-        print(f"   🎯 Target: {config['trading']['target_percent'] * 100:.0f}%")
+        print(f"   🛡️ Stop loss: {config['trading']['stop_loss_percent']:.0f}%")
+        print(f"   🎯 Target: {config['trading']['target_percent']:.0f}%")
         print(f"   📱 Paper trading: {config.get('paper_trading', True)}")
         
         # Final confirmation for live trading

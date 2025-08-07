@@ -57,12 +57,12 @@ def calculate_stop_loss(entry_price: float, sl_percent: float) -> float:
     
     Args:
         entry_price: Entry price of the option
-        sl_percent: Stop loss percentage
+        sl_percent: Stop loss percentage as decimal (e.g., 0.20 for 20%)
         
     Returns:
         Stop loss price
     """
-    return entry_price * (1 - sl_percent / 100)
+    return entry_price * (1 - sl_percent)
 
 def calculate_target(entry_price: float, target_percent: float) -> float:
     """
@@ -70,12 +70,12 @@ def calculate_target(entry_price: float, target_percent: float) -> float:
     
     Args:
         entry_price: Entry price of the option
-        target_percent: Target percentage
+        target_percent: Target percentage as decimal (e.g., 0.60 for 60%)
         
     Returns:
         Target price
     """
-    return entry_price * (1 + target_percent / 100)
+    return entry_price * (1 + target_percent)
 
 def calculate_trailing_sl(current_price: float, highest_price: float, 
                          entry_price: float, trailing_percent: float) -> float:
@@ -86,13 +86,13 @@ def calculate_trailing_sl(current_price: float, highest_price: float,
         current_price: Current option price
         highest_price: Highest achieved price since entry
         entry_price: Original entry price
-        trailing_percent: Trailing SL percentage
+        trailing_percent: Trailing SL percentage as decimal (e.g., 0.20 for 20%)
         
     Returns:
         New trailing stop loss price
     """
     # Calculate SL based on highest achieved price
-    trailing_sl = highest_price * (1 - trailing_percent / 100)
+    trailing_sl = highest_price * (1 - trailing_percent)
     
     # Ensure trailing SL is never below original SL
     original_sl = calculate_stop_loss(entry_price, trailing_percent)

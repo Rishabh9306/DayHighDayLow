@@ -11,7 +11,8 @@ trading:
 # API configurations will be loaded from environment variables
 kite:
   api_key: ${KITE_API_KEY}
-  access_token: ${KITE_ACCESS_TOKEN}
+  api_secret: ${KITE_API_SECRET}
+  user_id: ${KITE_USER_ID}
 
 alpha_vantage:
   api_key: ${ALPHA_VANTAGE_API_KEY}

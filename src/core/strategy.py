@@ -83,13 +83,15 @@ class TradingStrategy:
         self.telegram_bot = telegram_bot
         self.logger = logging.getLogger(__name__)
         
-        # Trading parameters - Fixed values as per requirements
-        self.capital_per_trade = 15000  # Fixed ₹15k per trade
-        self.fixed_quantity = 150       # Fixed 150 units (2 lots)
-        self.max_trades_per_day = 4     # Max regular trades (reentries don't count)
-        self.stop_loss_percent = 0.20   # 20%
-        self.target_percent = 0.60      # 60%
-        self.trailing_sl_percent = 0.20 # 20%
+        # Trading parameters - Load from config
+        trading_config = config.get('trading', {})
+        self.capital_per_trade = trading_config.get('capital_per_trade', 15000)
+        self.fixed_quantity = trading_config.get('fixed_quantity', 150)
+        self.max_trades_per_day = trading_config.get('max_trades_per_day', 4)
+        # Convert percentage values to decimals for internal calculations
+        self.stop_loss_percent = trading_config.get('stop_loss_percent', 20.0) / 100  # 20% -> 0.20
+        self.target_percent = trading_config.get('target_percent', 60.0) / 100       # 60% -> 0.60
+        self.trailing_sl_percent = trading_config.get('trailing_sl_percent', 20.0) / 100  # 20% -> 0.20
         
         # Market hours
         self.market_start = time(9, 15)
